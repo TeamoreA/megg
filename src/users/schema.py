@@ -1,17 +1,27 @@
 # users schema
-from django.contrib.auth import get_user_model
+from .models import CustomUser
 
 import graphene
 from graphene_django import DjangoObjectType
 
 
-class UserType(DjangoObjectType):
+class User(DjangoObjectType):
     class Meta:
-        model = get_user_model()
+        model = CustomUser
+        interfaces = (graphene.Node, )
+
+class User_Connection(graphene.Connection):
+    class Meta:
+        node = User
+    count = graphene.Int()
+
+    def resolve_count(self, info):
+        return len(self.edges)
 
 
 class CreateUser(graphene.Mutation):
-    user = graphene.Field(UserType)
+    """Mutation to create a new user"""
+    user = graphene.Field(User)
 
     class Arguments:
         username = graphene.String(required=True)
@@ -21,7 +31,7 @@ class CreateUser(graphene.Mutation):
         last_name = graphene.String()
 
     def mutate(self, info, **kwargs):
-        user = get_user_model()(
+        user = CustomUser(
             username=kwargs.get('username'),
             email=kwargs.get('email'),
             first_name=kwargs.get('first_name'),
@@ -34,11 +44,11 @@ class CreateUser(graphene.Mutation):
 
 
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
+    create_user = CreateUser.Field(description="Creates a new user with the arguments below.")
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserType)
+    users = graphene.ConnectionField(User_Connection)
 
-    def resolve_users(self, info):
-        return get_user_model().objects.all()
+    def resolve_users(self, info, **kwargs):
+        return CustomUser.objects.all()

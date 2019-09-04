@@ -7,7 +7,7 @@ from graphene_django.debug import DjangoDebug
 
 
 class Query(users.schema.Query, graphene.ObjectType):
-    debug = graphene.Field(DjangoDebug, name="_debug")
+    pass
 
 class Mutation(users.schema.Mutation, graphene.ObjectType,):
     pass
