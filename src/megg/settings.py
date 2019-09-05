@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'users',
     'graphene_django',
 ]
 
@@ -122,6 +124,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 GRAPHENE = {
- 'SCHEMA': 'src.schema.schema'
+    "SCHEMA": "megg.schema.schema"
 }
