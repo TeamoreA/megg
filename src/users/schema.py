@@ -1,8 +1,13 @@
 # users schema
-from .models import CustomUser
-
+from graphql import GraphQLError
 import graphene
 from graphene_django import DjangoObjectType
+from django.contrib.auth import password_validation
+
+from .models import CustomUser
+from utilities.validations import (
+    verify_email, validate_empty_fields
+    )
 
 
 class User(DjangoObjectType):
@@ -31,13 +36,20 @@ class CreateUser(graphene.Mutation):
         last_name = graphene.String()
 
     def mutate(self, info, **kwargs):
+        validate_empty_fields(**kwargs)
+        password = kwargs.get('password')
+        email = kwargs.get('email')
+        password_validation.validate_password(password)
+        if not verify_email(email):
+            raise GraphQLError("The email format is invalid")
         user = CustomUser(
             username=kwargs.get('username'),
-            email=kwargs.get('email'),
+            email=email,
             first_name=kwargs.get('first_name'),
             last_name=kwargs.get('last_name')
         )
-        user.set_password(kwargs.get('password'))
+        user.set_password(password)
+        import pdb; pdb.set_trace()
         user.save()
 
         return CreateUser(user=user)
