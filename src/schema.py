@@ -1,10 +1,10 @@
-import graphene
+# import graphene
 
-import hero.schema
-
-
-class Query(hero.schema.Query, graphene.ObjectType):
-    pass
+# import hero.schema
 
 
-schema = graphene.Schema(query=Query)
+# class Query(hero.schema.Query, graphene.ObjectType):
+#     pass
+
+
+# schema = graphene.Schema(query=Query)

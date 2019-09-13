@@ -1,7 +1,7 @@
 """Custom validations file"""
 import re
 
-def verify_email(self):
+def verify_email(email):
     """Function to verify a valid email format"""
     return bool(re.match('[^@]+@[^@]+\.[^@]+', email))
 

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'users',
+    'api.users',
+    'api.blogs',
     'graphene_django',
 ]
 

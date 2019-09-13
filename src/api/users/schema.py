@@ -40,6 +40,7 @@ class CreateUser(graphene.Mutation):
         password = kwargs.get('password')
         email = kwargs.get('email')
         password_validation.validate_password(password)
+        import pdb; pdb.set_trace()
         if not verify_email(email):
             raise GraphQLError("The email format is invalid")
         user = CustomUser(
@@ -49,7 +50,6 @@ class CreateUser(graphene.Mutation):
             last_name=kwargs.get('last_name')
         )
         user.set_password(password)
-        import pdb; pdb.set_trace()
         user.save()
 
         return CreateUser(user=user)

@@ -1,15 +1,15 @@
 
 import graphene
 
-import users.schema
+from api.users import schema
 
 from graphene_django.debug import DjangoDebug
 
 
-class Query(users.schema.Query, graphene.ObjectType):
+class Query(schema.Query, graphene.ObjectType):
     pass
 
-class Mutation(users.schema.Mutation, graphene.ObjectType,):
+class Mutation(schema.Mutation, graphene.ObjectType,):
     pass
 
 
