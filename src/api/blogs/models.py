@@ -4,6 +4,7 @@ from django.db import models
 from api.users.models import CustomUser as User
 from helpers.base_model import BaseModel
 
+
 class Blog(BaseModel):
     title = models.CharField(max_length=100, unique=True)
     body = models.TextField(blank=True)

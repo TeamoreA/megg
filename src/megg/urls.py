@@ -22,4 +22,3 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("megg/", GraphQLView.as_view(graphiql=True)),
 ]
-

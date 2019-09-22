@@ -1,3 +1,5 @@
+# flake8: noqa
+
 null = None
 
 get_paginated_users_query = '''{
@@ -70,6 +72,26 @@ create_user_response = {
         "email": "jimmy@app.com",
         "firstName": "Timothy",
         "lastName": "Kamau"
+      }
+    }
+  }
+}
+
+generate_token_mutation = '''mutation{
+  tokenAuth(username:"Jimmy", password:"Teamore123"){
+    token
+    user {
+      id
+    }
+  }
+}'''
+
+generate_token_response = {
+  "data": {
+    "tokenAuth": {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkppbW15IiwiZXhwIjoxNTY4NjI1Njc3LCJvcmlnSWF0IjoxNTY4NjI1Mzc3fQ.vn7BmFGQCJmJ1D3A9uzj7fLmH6WayJUKfa_9yLvaUJU",
+      "user": {
+        "id": "VXNlcjoy"
       }
     }
   }

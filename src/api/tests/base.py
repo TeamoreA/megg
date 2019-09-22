@@ -1,9 +1,9 @@
 import json
 from django.test import TestCase
-from graphene.test import  Client
+from graphene.test import Client
 from megg.schema import schema
 
-from users.models import CustomUser
+from api.users.models import CustomUser
 
 
 class BaseTestCase(TestCase):
@@ -22,7 +22,7 @@ class BaseTestCase(TestCase):
 
     def query(self, query: str):
         """Perform tests queries"""
-        executed = self._client.execute(query)                        
+        executed = self._client.execute(query)
         json_resp = json.loads(json.dumps(executed))
         return json_resp
 
@@ -32,4 +32,3 @@ class BaseTestCase(TestCase):
         '''
         self.assertNotIn('errors', resp, 'Response had errors')
         self.assertEqual(resp, expected, 'Response has correct data')
-  

@@ -1,12 +1,11 @@
-import collections
-
-from tests.base import BaseTestCase
+from api.tests.base import BaseTestCase
 
 
-from fixtures.users.user_fixture import (
+from api.fixtures.users.user_fixture import (
   create_user_response, create_user_mutation,
-  get_paginated_users_query,get_paginated_users_response
+  get_paginated_users_query, get_paginated_users_response
 )
+
 
 class UsersTestCase(BaseTestCase):
   """Class to test creation of users"""
@@ -20,5 +19,3 @@ class UsersTestCase(BaseTestCase):
     """test successfull querying of users"""
     resp = self.query(get_paginated_users_query)
     self.assertResponseNoErrors(resp, get_paginated_users_response)
-
-

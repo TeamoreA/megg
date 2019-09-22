@@ -1,9 +1,11 @@
 """Custom validations file"""
 import re
 
+
 def verify_email(email):
     """Function to verify a valid email format"""
-    return bool(re.match('[^@]+@[^@]+\.[^@]+', email))
+    return bool(re.match(r'[^@]+@[^@]+\.[^@]+', email)) # noqa
+
 
 def validate_empty_fields(**kwargs):
     """
