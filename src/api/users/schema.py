@@ -15,6 +15,7 @@ class User(DjangoObjectType):
         model = CustomUser
         interfaces = (graphene.Node, )
 
+
 class User_Connection(graphene.Connection):
     class Meta:
         node = User
@@ -49,18 +50,29 @@ class CreateUser(graphene.Mutation):
             last_name=kwargs.get('last_name')
         )
         user.set_password(password)
-        import pdb; pdb.set_trace()
         user.save()
 
         return CreateUser(user=user)
 
 
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field(description="Creates a new user with the arguments below.")
+    create_user = CreateUser.Field(
+        description="""
+        Creates a new user with the arguments below.
+        """
+        )
 
 
 class Query(graphene.ObjectType):
+    logged_in_user = graphene.Field(User)
     users = graphene.ConnectionField(User_Connection)
 
     def resolve_users(self, info, **kwargs):
         return CustomUser.objects.all()
+
+    def resolve_logged_in_user(self, info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in!')
+
+        return user
