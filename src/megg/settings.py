@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'api.users',
     'api.blogs',
+    'api.likes',
     'graphene_django',
 ]
 
