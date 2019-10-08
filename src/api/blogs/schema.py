@@ -1,5 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
+from graphql import GraphQLError
 
 from .models import Blog as BlogModel
 from utilities.validations import validate_empty_fields
@@ -22,6 +23,8 @@ class CreateBlog(graphene.Mutation):
     def mutate(self, info, **kwargs):
         validate_empty_fields(**kwargs)
         author = info.context.user
+        if author.is_anonymous:
+            raise GraphQLError('You must be logged in to perform this action')
         blog = BlogModel(
             title=kwargs.get('title'),
             body=kwargs.get('body'),
