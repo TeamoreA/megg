@@ -6,6 +6,7 @@ import graphql_jwt
 import api.users.schema
 import api.blogs.schema
 import api.likes.schema
+import api.comments.schema
 
 
 class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
@@ -20,6 +21,7 @@ class Query(
     api.users.schema.Query,
     api.blogs.schema.Query,
     api.likes.schema.Query,
+    api.comments.schema.Query,
     graphene.ObjectType
     ):
     """The base query class"""
@@ -30,6 +32,7 @@ class Mutation(
     api.users.schema.Mutation,
     api.blogs.schema.Mutation,
     api.likes.schema.Mutation,
+    api.comments.schema.Mutation,
     graphene.ObjectType
     ):
     token_auth = ObtainJSONWebToken.Field()
