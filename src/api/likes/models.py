@@ -1,6 +1,5 @@
 """Blog models"""
 from django.db import models
-from django.conf import settings
 
 from api.users.models import CustomUser as User
 from api.blogs.models import Blog
